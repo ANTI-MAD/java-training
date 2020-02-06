@@ -6,19 +6,16 @@
 
 ## User Stories
 
-В первую очередь начнем с работы "Покупатель" с системой.
-Сложная аутентификация  и работа с токенами пока вне скоупа, предпологается что пользователь будет передавать свой id как header.
-
 ### GPBS-1 Как "Покупатель" я хочу зарегистрироваться в системе, и, если такого пользователя не найдено, регистрируюсь
 
 Request:
 
-`POST /java-training-app/buyer/sign-up`
+`POST /beerShop-app/customer/sign-up`
 ```json
 {
-  "email" : "vasya@email.com",
-  "password" : "qwerty",
-  "fio" : "Пупкин Василий Иванович",
+  "email" : "example@email.com",
+  "password" : "password",
+  "fio" : "Петров Петр Петрович",
   "birthDate" : "19.01.1995",
 }
 ```
@@ -35,11 +32,11 @@ Response:
 
 Request:
 
-`POST /java-training-app/buyer/sign-in`
+`POST /beerShop-app/customer/sign-in`
 ```json
 {
-  "email" : "vasya@email.com",
-  "password" : "qwerty"
+  "email" : "example@email.com",
+  "password" : "password"
 }
 ```
 
@@ -55,7 +52,7 @@ Response:
 
 Request:
 
-`GET /java-training-app/beer/list`
+`GET /beerShop-app/beer/list`
 
 Response:
 `200 OK`
@@ -63,9 +60,23 @@ Response:
 [
   {
     "id" : 1, 
-    "title" : "Жигулевское",
-    "description" : "Цена, объём, крепость",
-    "manufacturer" : "ПивоБеларусь" 
+    "type" : "Belgian Tripel",
+    "name" : "Maredsous 10° Triple",
+    "alcohol": "не менее 6,9%",
+    "price" : "3",
+    "description" : "бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой",
+    "brewery" : "Abbaye de Maredsous",
+    "stockBalance" : 20
+  }
+  {
+    "id" : 2, 
+    "type" : "",
+    "name" : "",
+    "alcohol": "",
+    "price" : "",
+    "description" : "",
+    "brewery" : "",
+    "stockBalance" :
   }
 ]
 ```
@@ -74,7 +85,7 @@ Response:
 
 Request:
 
-`GET /java-training-app/beer/${beerId}/orderList`
+`GET /beerShop-app/beer/${beerId}/orderList`
 
 `Headers: userId=1` 
 

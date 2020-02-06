@@ -62,7 +62,7 @@ Response:
     "id" : 1, 
     "type" : "Belgian Tripel",
     "name" : "Maredsous 10° Triple",
-    "alcohol": "не менее 6,9%",
+    "alcohol": "10.00%",
     "price" : "3",
     "description" : "бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой",
     "brewery" : "Abbaye de Maredsous",

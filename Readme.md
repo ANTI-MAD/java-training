@@ -180,6 +180,7 @@ Response: `201 CREATED`
 Request: 
     
 `DELETE /beerShop-app/admin/beer/${beerId}`
+
 `Headers: beerId=1`
 
 Response: `200 OK`

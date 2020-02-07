@@ -60,23 +60,23 @@ Response:
 [
   {
     "id" : 1, 
-    "type" : "Belgian Tripel",
+    "type" : "Трипель",
     "name" : "Maredsous 10° Triple",
     "alcohol": "10.00%",
     "price" : "3",
-    "description" : "бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой",
+    "description" : "Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.",
     "brewery" : "Abbaye de Maredsous",
     "stockBalance" : 20
   }
   {
     "id" : 2, 
-    "type" : "",
-    "name" : "",
-    "alcohol": "",
-    "price" : "",
-    "description" : "",
-    "brewery" : "",
-    "stockBalance" :
+    "type" : "Пшеничное",
+    "name" : "Paulaner Hefe-Weißbier",
+    "alcohol": "5.5%",
+    "price" : "2.2",
+    "description" : "Цвет золотой, непрозрачный. Обильная мелкая пена.",
+    "brewery" : "Paulaner Brauerei",
+    "stockBalance" : 32
   }
 ]
 ```

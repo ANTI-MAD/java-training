@@ -142,3 +142,12 @@ Response: `201 CREATED`
    "id" : 3
 }
 ```
+
+### GPBS-6 Как "Администратор" я хочу удалить сорт пива из списка продаж, и, если такой сорт присутствует, удаляю его
+
+Request: 
+    
+`DELETE /beerShop-app/admin/beer/${beerId}`
+`Headers: beerId=1`
+
+Response: `200 OK`

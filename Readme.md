@@ -151,3 +151,17 @@ Request:
 `Headers: beerId=1`
 
 Response: `200 OK`
+
+### GPBS-7 Как "Администратор" я хочу изменить статус заказа на "Обработано", и, если заказ не обработан, меняю его статус
+
+Request: 
+    
+`PATCH /beerShop-app/admin/orders/1`
+
+```
+{
+    "processed": true
+}
+```
+    
+Response: `200 OK`

@@ -85,7 +85,7 @@ Response:
 
 Request:
 
-`GET /beerShop-app/beer/${beerId}/orderList`
+`GET /beerShop-app/beer/${beerId}/order`
 
 `Headers: userId=1` 
 

@@ -95,7 +95,7 @@ Request:
     "fio": "Петров Петр Петрович",
     "email": "example@email.com",
     "processed": false,
-    "total": 6,
+    "totalCost": 6,
     "order": [
         {
             "id" : 1, 

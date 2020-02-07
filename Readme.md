@@ -63,6 +63,7 @@ Response:
     "type" : "Трипель",
     "name" : "Maredsous 10° Triple",
     "alcohol": "10.00%",
+    "volume" : "0.5",
     "price" : "3",
     "description" : "Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.",
     "brewery" : "Abbaye de Maredsous",
@@ -73,6 +74,7 @@ Response:
     "type" : "Пшеничное",
     "name" : "Paulaner Hefe-Weißbier",
     "alcohol": "5.5%",
+    "volume" : "0.5",
     "price" : "2.2",
     "description" : "Цвет золотой, непрозрачный. Обильная мелкая пена.",
     "brewery" : "Paulaner Brauerei",
@@ -100,6 +102,7 @@ Request:
             "type" : "Трипель",
             "name" : "Maredsous 10° Triple",
             "alcohol": "10.00%",
+            "volume" : "0.5",
             "price" : "3",
             "description" : "Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.",
             "brewery" : "Abbaye de Maredsous",
@@ -112,3 +115,30 @@ Request:
 
 Response:
 `200 OK`
+
+### GPBS-5 Как "Администратор" я хочу добавить новый сорт пива в список продаж, и, если такого пива нет, добавляю его
+
+Request: 
+    
+`POST /beerShop-app/admin/beer/`
+
+```    
+{
+    "type" : "Пшеничное",
+    "name" : "Hoegaarden Wit-blanche",
+    "alcohol": "4.9%",
+    "price" : "1.5",
+    "volume" : "0.47",
+    "description" : "Цвет бледный, мутный. Пены почти нет.",
+    "brewery" : "Paulaner Brauerei",
+    "stockBalance" : 50
+}
+```
+
+Response: `201 CREATED`
+
+```
+{
+   "id" : 3
+}
+```

@@ -152,7 +152,7 @@ Response:
 
 Request: 
     
-`POST /beerShop-app/admin/beer/`
+`POST /beerShop-app/beer/`
 
 ```    
 {

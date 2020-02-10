@@ -84,7 +84,7 @@ Response:
 
 Request:
 
-`GET /beerShop-app/beer/list`
+`GET /beerShop-app/beer`
 
 Response:
 `200 OK`
@@ -96,7 +96,7 @@ Response:
     "name" : "Maredsous 10° Triple",
     "alcohol": "10.00%",
     "volume" : "0.5",
-    "price" : "3",
+    "price" : 3,
     "description" : "Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.",
     "brewery" : "Abbaye de Maredsous",
     "stockBalance" : 20
@@ -107,7 +107,7 @@ Response:
     "name" : "Paulaner Hefe-Weißbier",
     "alcohol": "5.5%",
     "volume" : "0.5",
-    "price" : "2.2",
+    "price" : 2.2,
     "description" : "Цвет золотой, непрозрачный. Обильная мелкая пена.",
     "brewery" : "Paulaner Brauerei",
     "stockBalance" : 32
@@ -135,7 +135,7 @@ Request:
             "name" : "Maredsous 10° Triple",
             "alcohol": "10.00%",
             "volume" : "0.5",
-            "price" : "3",
+            "price" : 3,
             "description" : "Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.",
             "brewery" : "Abbaye de Maredsous",
             "quantity": 2
@@ -159,8 +159,8 @@ Request:
     "type" : "Пшеничное",
     "name" : "Hoegaarden Wit-blanche",
     "alcohol": "4.9%",
-    "price" : "1.5",
     "volume" : "0.47",
+    "price" : 1.5,
     "description" : "Цвет бледный, мутный. Пены почти нет.",
     "brewery" : "Paulaner Brauerei",
     "stockBalance" : 50
@@ -179,7 +179,7 @@ Response: `201 CREATED`
 
 Request: 
     
-`DELETE /beerShop-app/admin/beer/${beerId}`
+`DELETE /beerShop-app/beer/${beerId}`
 
 `Headers: beerId=1`
 
@@ -198,3 +198,25 @@ Request:
 ```
     
 Response: `200 OK`
+
+### GPBS-7 Как "Администратор" я хочу изменить цену на пиво, и если такой сорт есть, меняю цену
+
+Request: 
+    
+`PATCH /beerShop-app/beer/${beerId}`
+
+`Headers: beerId=3`
+    
+```    
+{
+    "price": 8.30
+}
+```
+
+Response: `200 OK`
+
+```
+{
+    "id" : 3
+}
+```

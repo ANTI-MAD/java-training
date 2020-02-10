@@ -205,11 +205,11 @@ Request:
     
 `PATCH /beerShop-app/beer/${beerId}`
 
-`Headers: beerId=3`
+`Headers: beerId=1`
     
 ```    
 {
-    "price": 8.30
+    "price": 3.15
 }
 ```
 
@@ -217,6 +217,6 @@ Response: `200 OK`
 
 ```
 {
-    "id" : 3
+    "id" : 1
 }
 ```

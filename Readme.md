@@ -119,7 +119,7 @@ Response:
 
 Request:
 
-`GET /beerShop-app/beer/${beerId}/order`
+`POST /beerShop-app/beer/${beerId}/order`
 
 ```
 {
@@ -133,11 +133,6 @@ Request:
             "id" : 1, 
             "type" : "Трипель",
             "name" : "Maredsous 10° Triple",
-            "alcohol": "10.00%",
-            "volume" : "0.5",
-            "price" : 3,
-            "description" : "Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.",
-            "brewery" : "Abbaye de Maredsous",
             "quantity": 2
         }
     ]
@@ -146,7 +141,7 @@ Request:
 
 
 Response:
-`200 OK`
+`201 CREATED`
 
 ### GPBS-5 Как "Администратор" я хочу добавить новый сорт пива в список продаж, и, если такого пива нет, добавляю его
 

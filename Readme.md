@@ -191,6 +191,8 @@ Request:
     
 `PATCH /beerShop-app/admin/orders/1`
 
+`Headers: orderId=1`
+
 ```
 {
     "processed": true
@@ -198,6 +200,12 @@ Request:
 ```
     
 Response: `200 OK`
+
+```
+{
+    "id": 1
+}
+```
 
 ### GPBS-8 Как "Администратор" я хочу изменить цену на пиво, и если такой сорт есть, меняю цену
 

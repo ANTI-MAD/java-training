@@ -91,7 +91,7 @@ Response:
 
 Request:
 
-`GET /beer-shop-app/beer`
+`GET /beer-shop-app/beer/list`
 
 Response:
 `200 OK`

@@ -42,7 +42,7 @@
 
 Request:
 
-`POST /beerShop-app/customer/sign-up`
+`POST /beer-shop-app/customer/sign-up`
 ```json
 {
   "email" : "example@email.com",
@@ -64,7 +64,7 @@ Response:
 
 Request:
 
-`POST /beerShop-app/customer/sign-in`
+`POST /beer-shop-app/customer/sign-in`
 ```json
 {
   "email" : "example@email.com",
@@ -84,7 +84,7 @@ Response:
 
 Request:
 
-`GET /beerShop-app/beer`
+`GET /beer-shop-app/beer`
 
 Response:
 `200 OK`
@@ -119,7 +119,7 @@ Response:
 
 Request:
 
-`POST /beerShop-app/beer/${beerId}/order`
+`POST /beer-shop-app/сustomer/order/beer/${beerId}r`
 
 ```
 {
@@ -152,7 +152,7 @@ Response:
 
 Request: 
     
-`POST /beerShop-app/beer/add`
+`POST /beer-shop-app/beer/add`
 
 ```    
 {
@@ -179,7 +179,7 @@ Response: `201 CREATED`
 
 Request: 
     
-`DELETE /beerShop-app/beer/${beerId}`
+`DELETE /beer-shop-app/beer/${beerId}`
 
 `Headers: beerId=1`
 
@@ -189,7 +189,7 @@ Response: `200 OK`
 
 Request: 
     
-`PATCH /beerShop-app/admin/orders/1`
+`PATCH /beer-shop-app/admin/orders/1`
 
 `Headers: orderId=1`
 
@@ -211,7 +211,7 @@ Response: `200 OK`
 
 Request: 
     
-`PATCH /beerShop-app/beer/${beerId}`
+`PATCH /beer-shop-app/beer/${beerId}`
 
 `Headers: beerId=1`
     

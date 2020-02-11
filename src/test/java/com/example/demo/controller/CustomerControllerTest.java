@@ -22,7 +22,7 @@ public class CustomerControllerTest {
     public void testCustomerSignUpIsCreated() throws Exception {
         // given
         // when
-        mockMvc.perform(post("/customer/sign-up")
+        mockMvc.perform(post("/beerShop-app/customer/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "  \"email\" : \"example@email.com\",\n" +
@@ -32,6 +32,23 @@ public class CustomerControllerTest {
                         "}"))
                 // then
                 .andExpect(status().isCreated())
+                .andExpect(content().json("{\n" +
+                        "  \"id\" : 1\n" +
+                        "}"));
+    }
+
+    @Test
+    public void testStudentSignInIsOk() throws Exception {
+        // given
+        // when
+        mockMvc.perform(post("/beerShop-app/customer/sign-in")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "  \"email\" : \"example@email.com\",\n" +
+                        "  \"password\" : \"password\"\n" +
+                        "}"))
+                // then
+                .andExpect(status().isOk())
                 .andExpect(content().json("{\n" +
                         "  \"id\" : 1\n" +
                         "}"));

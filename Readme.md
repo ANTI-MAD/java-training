@@ -126,7 +126,7 @@ Response:
 
 Request:
 
-`POST /beer-shop-app/сustomer/order/beer/${beerId}`
+`POST /beer-shop-app/сustomer/order/${beerId}`
 
 ```
 {

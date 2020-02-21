@@ -6,7 +6,7 @@
 
 ## Сущности
 
-### Пиво (Beer):
+### Пиво:
 
 Поля:   
 - Тип
@@ -18,22 +18,15 @@
 - Пивоварня
 - Количество на складе
     
-### Покупатель (Customer):
+### Покупатель:
 
 Поля:
 - ФИО
 - Email
 - Пароль
 - Дата рождения
-
-### Заказ (Order):
-
-Поля:
-- Покупатель
-- Статус
-- Общая стоимость
-
-### Администратор (Administrator):
+     
+### Администратор:
 
 Пользователь, который следит за поступлениями заказов, добавляет и удаляет сорта пива из списка, а также, при необходимости, изменяет цены.
 
@@ -49,7 +42,7 @@
 
 Request:
 
-`POST /beer-shop-app/customer/sign-up`
+`POST /beerShop-app/customer/sign-up`
 ```json
 {
   "email" : "example@email.com",
@@ -71,7 +64,7 @@ Response:
 
 Request:
 
-`POST /beer-shop-app/customer/sign-in`
+`POST /beerShop-app/customer/sign-in`
 ```json
 {
   "email" : "example@email.com",
@@ -91,7 +84,7 @@ Response:
 
 Request:
 
-`GET /beer-shop-app/beer/list`
+`GET /beerShop-app/beer`
 
 Response:
 `200 OK`
@@ -126,20 +119,29 @@ Response:
 
 Request:
 
-`POST /beer-shop-app/сustomer/order/${beerId}`
+`POST /beerShop-app/beer/${beerId}/order`
 
 ```
-[
-  {
-  "beerId" : 1,
-  "amount" : 1
-  },
-  
-  {
-  "beerId" : 2,
-  "amount" : 2
-  }
-]
+{
+    "id": 1,
+    "fio": "Петров Петр Петрович",
+    "email": "example@email.com",
+    "processed": false,
+    "totalCost": 6,
+    "order": [
+        {
+            "id" : 1, 
+            "type" : "Трипель",
+            "name" : "Maredsous 10° Triple",
+            "alcohol": "10.00%",
+            "volume" : "0.5",
+            "price" : 3,
+            "description" : "Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.",
+            "brewery" : "Abbaye de Maredsous",
+            "quantity": 2
+        }
+    ]
+},
 ``` 
 
 
@@ -150,7 +152,7 @@ Response:
 
 Request: 
     
-`POST /beer-shop-app/beer`
+`POST /beerShop-app/beer/add`
 
 ```    
 {
@@ -177,7 +179,7 @@ Response: `201 CREATED`
 
 Request: 
     
-`DELETE /beer-shop-app/beer/${beerId}`
+`DELETE /beerShop-app/beer/${beerId}`
 
 `Headers: beerId=1`
 
@@ -187,7 +189,7 @@ Response: `200 OK`
 
 Request: 
     
-`PATCH /beer-shop-app/admin/orders/1`
+`PATCH /beerShop-app/admin/orders/1`
 
 `Headers: orderId=1`
 
@@ -209,7 +211,7 @@ Response: `200 OK`
 
 Request: 
     
-`PATCH /beer-shop-app/beer/${beerId}`
+`PATCH /beerShop-app/beer/${beerId}`
 
 `Headers: beerId=1`
     

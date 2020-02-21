@@ -4,24 +4,28 @@ import com.example.demo.dto.Beer;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
-@Log
+import java.util.LinkedList;
+import java.util.List;
+
 @Service
 public class BeerService {
 
-    public String getBeerList() {
-        return "[\n" +
-                "  {\n" +
-                "      \"id\" : 1,\n" +
-                "      \"type\" : \"Трипель\",\n" +
-                "      \"name\" : \"Maredsous 10° Triple\",\n" +
-                "      \"alcohol\" : \"10.0%\",\n" +
-                "      \"volume\" : \"0.5\",\n" +
-                "      \"price\" : 3,\n" +
-                "      \"description\" : \"Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.\",\n" +
-                "      \"brewery\" : \"Abbaye de Maredsous\",\n" +
-                "      \"stockBalance\" : 20\n" +
-                "    }\n" +
-                "]";
+    public List<Beer> getBeers() {
+        List<Beer> list = new LinkedList<>();
+
+        list.add(Beer.builder()
+                .id(1L)
+                .type("Трипель")
+                .name("Maredsous 10° Triple")
+                .alcohol("10.0%")
+                .volume("0.5")
+                .price(3D)
+                .description("Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, " +
+                        "с фруктовыми нотками и пряной хмелевой горчинкой.")
+                .brewery("Abbaye de Maredsous")
+                .stockBalance(20)
+                .build());
+        return list;
     }
 
     public String addNewBeer(final Beer beer){
@@ -32,7 +36,7 @@ public class BeerService {
         return "{\"id\":1}";
     }
 
-    public String updateCostBeer(final Long beerId){
+    public String updatePrice(final Long beerId){
         return "{\"id\":1}";
     }
 }

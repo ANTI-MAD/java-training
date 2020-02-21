@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class Order {
-    private Long id;
-    private Beer beer;
-    private Integer totalCost;
+public class UserSignInResponse {
+    private String token;
 }

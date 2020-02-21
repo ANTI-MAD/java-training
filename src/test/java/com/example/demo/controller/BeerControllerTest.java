@@ -19,8 +19,8 @@ public class BeerControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testGetBeerListIsOk() throws Exception {
-        mockMvc.perform(get("/beerShop-app/beer")
+    public void testGetBeersIsOk() throws Exception {
+        mockMvc.perform(get("/beer-shop-app/beers/list")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[\n" +
@@ -40,7 +40,7 @@ public class BeerControllerTest {
 
     @Test
     public void testAddNewBeerIsOk() throws Exception {
-        mockMvc.perform(post("/beerShop-app/beer/add")
+        mockMvc.perform(post("/beer-shop-app/beers")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "      \"type\" : \"Трипель\",\n" +
@@ -60,7 +60,7 @@ public class BeerControllerTest {
 
     @Test
     public void testDeleteBeerIsOk() throws Exception {
-        mockMvc.perform(delete("/beerShop-app/beer/1")
+        mockMvc.perform(delete("/beer-shop-app/beers/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\n" +
@@ -69,8 +69,8 @@ public class BeerControllerTest {
     }
 
     @Test
-    public void testUpdateCostBeer() throws Exception {
-        mockMvc.perform(patch("/beerShop-app/beer/3")
+    public void testUpdatePrice() throws Exception {
+        mockMvc.perform(put("/beer-shop-app/beers/3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "    \"price\": 3.15\n" +

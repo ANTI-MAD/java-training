@@ -8,20 +8,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Log
 @Data
 @RestController
-@RequestMapping("/beerShop-app/beer")
+@RequestMapping("/beer-shop-app/beers")
 public class BeerController {
     private final BeerService beerService;
 
-    @GetMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public String getBeerList(){
-        return beerService.getBeerList();
+    @GetMapping(value = "/list")
+    public List<Beer> getBeers(){
+        return beerService.getBeers();
     }
 
-    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public String addNewBeer(@RequestBody final Beer beer){
         return beerService.addNewBeer(beer);
@@ -33,9 +34,9 @@ public class BeerController {
         return beerService.deleteBeer(beerId);
     }
 
-    @PatchMapping(value = "/{beerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{beerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String updateCostBeer(@PathVariable final Long beerId){
-        return beerService.updateCostBeer(beerId);
+    public String updatePrice(@PathVariable final Long beerId){
+        return beerService.updatePrice(beerId);
     }
 }

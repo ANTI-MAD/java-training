@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -19,8 +20,8 @@ public class OrderControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testUpdateOrder() throws Exception {
-        mockMvc.perform(patch("/beerShop-app/beer/admin/orders/1")
+    public void testUpdateStatusOrder() throws Exception {
+        mockMvc.perform(put("/beer-shop-app/beer/admin/orders/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "    \"processed\": true\n" +

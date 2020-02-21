@@ -7,13 +7,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.hasLength;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class CustomerControllerTest {
+public class AuthControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -22,7 +22,7 @@ public class CustomerControllerTest {
     public void testCustomerSignUpIsCreated() throws Exception {
         // given
         // when
-        mockMvc.perform(post("/beerShop-app/customer/sign-up")
+        mockMvc.perform(post("/beer-shop-app/user/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "  \"email\" : \"example@email.com\",\n" +
@@ -32,16 +32,14 @@ public class CustomerControllerTest {
                         "}"))
                 // then
                 .andExpect(status().isCreated())
-                .andExpect(content().json("{\n" +
-                        "  \"id\" : 1\n" +
-                        "}"));
+                .andExpect(jsonPath("token", hasLength(144)));
     }
 
     @Test
     public void testStudentSignInIsOk() throws Exception {
         // given
         // when
-        mockMvc.perform(post("/beerShop-app/customer/sign-in")
+        mockMvc.perform(post("/beer-shop-app/user/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "  \"email\" : \"example@email.com\",\n" +
@@ -49,8 +47,6 @@ public class CustomerControllerTest {
                         "}"))
                 // then
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\n" +
-                        "  \"id\" : 1\n" +
-                        "}"));
+                .andExpect(jsonPath("token", hasLength(144)));
     }
 }

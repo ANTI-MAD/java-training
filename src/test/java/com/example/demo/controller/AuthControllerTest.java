@@ -36,9 +36,9 @@ public class AuthControllerTest extends AbstractControllerTest{
     @Test
     public void testCustomerSignInIsOk() throws Exception {
         // given
-        final User user = new User("vasya@email.com", passwordEncoder.encode("qwerty"),
-                List.of(new SimpleGrantedAuthority("STUDENT")));
-        willReturn(user).given(loadUserDetailService).loadUserByUsername("vasya@email.com");
+        final User user = new User("example@email.com", passwordEncoder.encode("password"),
+                List.of(new SimpleGrantedAuthority("CUSTOMER")));
+        willReturn(user).given(loadUserDetailService).loadUserByUsername("example@email.com");
         // when
         mockMvc.perform(post("/beer-shop-app/user/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)

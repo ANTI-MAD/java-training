@@ -1,22 +1,19 @@
 package com.example.demo.controller;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-
 import static org.hamcrest.Matchers.hasLength;
+import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
-public class AuthControllerTest {
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
-    @Autowired
-    private MockMvc mockMvc;
+
+public class AuthControllerTest extends AbstractControllerTest{
 
     @Test
     public void testCustomerSignUpIsCreated() throws Exception {
@@ -35,9 +32,13 @@ public class AuthControllerTest {
                 .andExpect(jsonPath("token", hasLength(144)));
     }
 
+
     @Test
-    public void testStudentSignInIsOk() throws Exception {
+    public void testCustomerSignInIsOk() throws Exception {
         // given
+        final User user = new User("vasya@email.com", passwordEncoder.encode("qwerty"),
+                List.of(new SimpleGrantedAuthority("STUDENT")));
+        willReturn(user).given(loadUserDetailService).loadUserByUsername("vasya@email.com");
         // when
         mockMvc.perform(post("/beer-shop-app/user/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)

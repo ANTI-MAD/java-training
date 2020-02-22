@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
@@ -26,8 +27,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.httpBasic()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/beer-shop-app/user/sign-up", "/beer-shop-app/user/sign-in").permitAll()
                 .antMatchers(HttpMethod.GET, "/beer-shop-app/beers").permitAll()
+                .antMatchers(HttpMethod.GET, "/beer-shop-app/beers/list").permitAll()
+                .antMatchers(HttpMethod.POST, "/beer-shop-app/user/sign-up").permitAll()
+                .antMatchers(HttpMethod.POST, "/beer-shop-app/user/sign-in").permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

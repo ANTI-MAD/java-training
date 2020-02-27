@@ -60,6 +60,16 @@ Response:
 }
 ```
 
+Если пользоветель с таким email уже существует, то будет возвращено:
+
+Response:
+`403 Forbidden`
+```json
+{
+  "message" : "User with that email already exists"
+}
+```
+
 ### GPBS-2 Как "Покупатель", будучи зарегистрированным пользователем, я хочу войти в систему, и, если такой пользователь существует и пароль совпадает, войти в систему
 
 Request:
@@ -77,6 +87,16 @@ Response:
 ```json
 {
   "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQGVtYWlsLmNvbSIsImV4cCI6MTU4Mjg0NzQzOSwiaWF0IjoxNTgyODExNDM5fQ.bjRI9p-17lPdNJUSrMlL3OfAPwpvOmVIlkqiw-0Jf8I"
+}
+```
+
+Если email либо пароль неверные, то пользователь получит следующий ответ:
+
+Response:
+`403 Forbidden`
+```json
+{
+  "message" : "Wrong email or password"
 }
 ```
 

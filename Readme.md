@@ -228,3 +228,55 @@ Response: `200 OK`
     "id" : 1
 }
 ```
+
+### GPBS-9 Как "Администратор" я хочу изменить количество пива на складе, и если такой сорт пива есть, меняю количество
+
+Request: 
+    
+`PATCH /beerShop-app/beer/${beerId}`
+
+`Headers: beerId=1`
+    
+```    
+{
+    "stockBalance": 30
+}
+```
+
+Response: `200 OK`
+
+```
+{
+    "responce" : "stockBalance successfully changed to 30"
+}
+
+Если такого пива не найдено, то будет возвращено
+
+Response: `404 Not Found`
+```
+
+### GPBS-10 Как "Администратор" я хочу изменить название пива, и если такое название есть, меняю его
+
+Request: 
+    
+`PATCH /beerShop-app/beer/${beerId}`
+
+`Headers: beerId=1`
+    
+```    
+{
+    "name": "Hoegaarden Wit-blanche New"
+}
+```
+
+Response: `200 OK`
+
+```
+{
+    "responce" : "Hoegaarden Wit-blanche successfully changed to Hoegaarden Wit-blanche New"
+}
+
+Если такого пива не найдено, то будет возвращено
+
+Response: `404 Not Found`
+```

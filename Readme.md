@@ -56,7 +56,7 @@ Response:
 `201 CREATED`
 ```json
 {
-  "id" : 1
+  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQGVtYWlsLmNvbSIsImV4cCI6MTU4Mjg0NzQzOSwiaWF0IjoxNTgyODExNDM5fQ.bjRI9p-17lPdNJUSrMlL3OfAPwpvOmVIlkqiw-0Jf8I"
 }
 ```
 
@@ -76,7 +76,7 @@ Response:
 `200 OK`
 ```json
 {
-  "id" : 1
+  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQGVtYWlsLmNvbSIsImV4cCI6MTU4Mjg0NzQzOSwiaWF0IjoxNTgyODExNDM5fQ.bjRI9p-17lPdNJUSrMlL3OfAPwpvOmVIlkqiw-0Jf8I"
 }
 ```
 

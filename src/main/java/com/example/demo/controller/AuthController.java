@@ -28,7 +28,7 @@ public class AuthController {
     @PostMapping(value = "/sign-up", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public UserSignInResponse signUp(@RequestBody final CustomerSignUpRequest request)
-        throws SuchUserAlreadyExistException {
+            throws SuchUserAlreadyExistException {
         authService.signUp(request);
         return singIn(new UserSignInRequest(request.getEmail(), request.getPassword()));
     }

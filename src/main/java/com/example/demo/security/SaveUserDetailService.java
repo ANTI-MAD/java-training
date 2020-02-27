@@ -16,9 +16,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class SaveUserDetailService {
     private final PasswordEncoder passwordEncoder;
-    private final Map<String, String> inMemoryUsers = new HashMap<>();
+    private final LoadUserDetailService loadUserDetailService;
 
     public void saveUser(final String username, final String password) {
-        inMemoryUsers.put(username, passwordEncoder.encode(password));
+        loadUserDetailService.getInMemoryUsers().put(username, passwordEncoder.encode(password));
     }
 }

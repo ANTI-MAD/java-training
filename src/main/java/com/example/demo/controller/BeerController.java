@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.Beer;
+import com.example.demo.dto.Message;
 import com.example.demo.service.BeerService;
 import lombok.Data;
 import lombok.extern.java.Log;
@@ -24,19 +25,19 @@ public class BeerController {
 
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public String addNewBeer(@RequestBody final Beer beer){
+    public Message addNewBeer(@RequestBody final Beer beer){
         return beerService.addNewBeer(beer);
     }
 
     @DeleteMapping(value = "/{beerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String deleteBeer(@PathVariable final Long beerId){
+    public Message deleteBeer(@PathVariable final Long beerId){
         return beerService.deleteBeer(beerId);
     }
 
     @PutMapping(value = "/{beerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String updatePrice(@PathVariable final Long beerId){
+    public Message updatePrice(@PathVariable final Long beerId){
         return beerService.updatePrice(beerId);
     }
 }

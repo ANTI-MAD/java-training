@@ -54,7 +54,7 @@ public class BeerControllerTest {
                         "}"))
                 .andExpect(status().isCreated())
                 .andExpect(content().json("{\n" +
-                        "  \"id\" : 3\n" +
+                        "  \"response\" : \"Beer Maredsous 10° Triple successfully added\"\n" +
                         "}"));
     }
 
@@ -64,7 +64,7 @@ public class BeerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\n" +
-                        "  \"id\" : 1\n" +
+                "  \"response\" : \"Maredsous 10° Triple\"\n" +
                         "}"));
     }
 
@@ -77,7 +77,7 @@ public class BeerControllerTest {
                         "}"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\n" +
-                        "  \"id\" : 1\n" +
+                        "  \"response\" : \"Price changed to 3.15\"\n" +
                         "}"));
     }
 }

@@ -1,5 +1,7 @@
 package com.example.demo.security;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +15,9 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Data
 public class LoadUserDetailService implements UserDetailsService {
+
     private final Map<String, String> inMemoryUsers = new HashMap<>();
 
     @Override

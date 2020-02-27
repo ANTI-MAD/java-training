@@ -29,9 +29,25 @@ public class AuthControllerTest extends AbstractControllerTest{
                         "}"))
                 // then
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("token", hasLength(144)));
+                .andExpect(jsonPath("token", hasLength(147)));
     }
 
+    @Test
+    public void testCustomerSignUpWhenUserAlreadyExisted() throws Exception {
+        // given
+        signInAsCustomer();
+        // when
+        mockMvc.perform(post("/beer-shop-app/user/sign-up")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "  \"email\" : \"example@email.com\",\n" +
+                        "  \"password\" : \"password\",\n" +
+                        "  \"fio\" : \"Петров Петр Петрович\",\n" +
+                        "  \"birthDate\" : \"19.01.1995\" \n" +
+                        "}"))
+                // then
+                .andExpect(status().isBadRequest());
+    }
 
     @Test
     public void testCustomerSignInIsOk() throws Exception {
@@ -48,6 +64,40 @@ public class AuthControllerTest extends AbstractControllerTest{
                         "}"))
                 // then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("token", hasLength(144)));
+                .andExpect(jsonPath("token", hasLength(147)));
+    }
+
+    @Test
+    public void testStudentSignInWithWrongPassword() throws Exception {
+        // given
+        final User user = new User("example@email.com", passwordEncoder.encode("password"),
+                List.of(new SimpleGrantedAuthority("CUSTOMER")));
+        willReturn(user).given(loadUserDetailService).loadUserByUsername("example@email.com");
+        // when
+        mockMvc.perform(post("/beer-shop-app/user/sign-in")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "  \"email\" : \"example@email.com\",\n" +
+                        "  \"password\" : \"wrongPassword\"\n" +
+                        "}"))
+                // then
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testCustomerSignInWithWrongEmail() throws Exception {
+        // given
+        final User user = new User("vasya@email.com", passwordEncoder.encode("qwerty"),
+                List.of(new SimpleGrantedAuthority("CUSTOMER")));
+        willReturn(user).given(loadUserDetailService).loadUserByUsername("vasya@email.com");
+        // when
+        mockMvc.perform(post("/beer-shop-app/user/sign-in")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "  \"email\" : \"vasya@email.com\",\n" +
+                        "  \"password\" : \"wrongPassword\"\n" +
+                        "}"))
+                // then
+                .andExpect(status().isForbidden());
     }
 }

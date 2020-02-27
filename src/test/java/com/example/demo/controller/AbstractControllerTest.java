@@ -35,19 +35,19 @@ public abstract class AbstractControllerTest {
     @SpyBean
     protected LoadUserDetailService loadUserDetailService;
 
-    protected String signInAsStudent() throws Exception {
-        final User user = new User("vasya@email.com", passwordEncoder.encode("qwerty"),
+    protected String signInAsCustomer() throws Exception {
+        final User user = new User("example@email.com", passwordEncoder.encode("password"),
                 List.of(new SimpleGrantedAuthority("ROLE_" + CUSTOMER.name())));
-        willReturn(user).given(loadUserDetailService).loadUserByUsername("vasya@email.com");
-        final String response = mockMvc.perform(post("beer-shop-app/user/sign-in")
+        willReturn(user).given(loadUserDetailService).loadUserByUsername("example@email.com");
+        final String response = mockMvc.perform(post("/beer-shop-app/user/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
-                        "  \"email\" : \"vasya@email.com\",\n" +
-                        "  \"password\" : \"qwerty\"\n" +
+                        "  \"email\" : \"example@email.com\",\n" +
+                        "  \"password\" : \"password\"\n" +
                         "}"))
                 // then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("token", hasLength(144)))
+                .andExpect(jsonPath("token", hasLength(147)))
                 .andReturn().getResponse().getContentAsString();
         return "Bearer " + objectMapper.readValue(response, UserSignInResponse.class).getToken();
     }

@@ -6,6 +6,7 @@ import com.example.demo.exception.SuchUserAlreadyExistException;
 import com.example.demo.security.LoadUserDetailService;
 import com.example.demo.security.SaveUserDetailService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,11 +16,13 @@ public class AuthService {
     private final SaveUserDetailService saveUserDetailService;
 
     public void signUp(final CustomerSignUpRequest request) throws SuchUserAlreadyExistException {
-        if (loadUserDetailService.loadUserByUsername(request.getEmail()) != null) {
-            throw new SuchUserAlreadyExistException();
+        try {
+            if (loadUserDetailService.loadUserByUsername(request.getEmail()) != null) {
+                throw new SuchUserAlreadyExistException("User with email=" + request.getEmail() + " already exists");
+            }
+        } catch (final UsernameNotFoundException e) {
+            saveUserDetailService.saveUser(request.getEmail(), request.getPassword());
         }
-        //loadUserDetailService.saveUser(request.getEmail(), request.getPassword());
-        saveUserDetailService.saveUser(request.getEmail(), request.getPassword());
     }
 
     public String signIn(final UserSignInRequest request) {

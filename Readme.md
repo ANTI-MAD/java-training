@@ -247,13 +247,13 @@ Response: `200 OK`
 
 ```
 {
-    "responce" : "stockBalance successfully changed to 30"
+    "response" : "stockBalance successfully changed to 30"
 }
+```
 
 Если такого пива не найдено, то будет возвращено
 
 Response: `404 Not Found`
-```
 
 ### GPBS-10 Как "Администратор" я хочу изменить название пива, и если такое название есть, меняю его
 
@@ -273,10 +273,10 @@ Response: `200 OK`
 
 ```
 {
-    "responce" : "Hoegaarden Wit-blanche successfully changed to Hoegaarden Wit-blanche New"
+    "response" : "Hoegaarden Wit-blanche successfully changed to Hoegaarden Wit-blanche New"
 }
+```
 
 Если такого пива не найдено, то будет возвращено
 
 Response: `404 Not Found`
-```

@@ -195,7 +195,7 @@ Request:
 Response: `201 CREATED`
 ```json
 {
-   "response" : "Beer Maredsous 10° Triple successfully added"
+   "response" : "Hoegaarden Wit-blanche Triple successfully added"
 }
 ```
 
@@ -302,7 +302,7 @@ Response: `200 OK`
 
 ```
 {
-    "response" : "Hoegaarden Wit-blanche successfully changed to Hoegaarden Wit-blanche New"
+    "response" : "Maredsous 10° Triple successfully changed to Hoegaarden Wit-blanche New"
 }
 ```
 

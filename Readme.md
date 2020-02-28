@@ -112,7 +112,7 @@ Response:
 
 Request:
 
-`GET /beerShop-app/beer`
+`GET /beerShop-app/beers`
 
 Response:
 `200 OK`
@@ -147,26 +147,18 @@ Response:
 
 Request:
 
-`POST /beerShop-app/beer/${beerId}/order`
+`POST /beerShop-app/beers/${beerId}/order`
 
 ```
 {
     "id": 1,
-    "fio": "Петров Петр Петрович",
-    "email": "example@email.com",
+    "customer_id": 1,
     "processed": false,
     "totalCost": 6,
-    "order": [
+    "shoppingList": [
         {
-            "id" : 1, 
-            "type" : "Трипель",
-            "name" : "Maredsous 10° Triple",
-            "alcohol": "10.00%",
-            "volume" : "0.5",
-            "price" : 3,
-            "description" : "Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.",
-            "brewery" : "Abbaye de Maredsous",
-            "quantity": 2
+            "beer_id" : 1, 
+            "amount": 2
         }
     ]
 },
@@ -175,12 +167,17 @@ Request:
 
 Response:
 `201 CREATED`
+```json
+{
+  "response" : "Beer Maredsous 10° Triple successfully added"
+}
+```
 
 ### GPBS-5 Как "Администратор" я хочу добавить новый сорт пива в список продаж, и, если такого пива нет, добавляю его
 
 Request: 
     
-`POST /beerShop-app/beer/add`
+`POST /beerShop-app/beers/`
 
 ```    
 {
@@ -196,10 +193,9 @@ Request:
 ```
 
 Response: `201 CREATED`
-
-```
+```json
 {
-   "id" : 3
+   "response" : "Beer Maredsous 10° Triple successfully added"
 }
 ```
 
@@ -207,11 +203,16 @@ Response: `201 CREATED`
 
 Request: 
     
-`DELETE /beerShop-app/beer/${beerId}`
+`DELETE /beerShop-app/beers/${beerId}`
 
 `Headers: beerId=1`
 
 Response: `200 OK`
+```json
+{
+   "response" : "Maredsous 10° Triple"
+}
+```
 
 ### GPBS-7 Как "Администратор" я хочу изменить статус заказа на "Обработано", и, если заказ не обработан, меняю его статус
 
@@ -231,7 +232,7 @@ Response: `200 OK`
 
 ```
 {
-    "id": 1
+    "response": "Maredsous 10° Triple - true"
 }
 ```
 
@@ -239,7 +240,7 @@ Response: `200 OK`
 
 Request: 
     
-`PATCH /beerShop-app/beer/${beerId}`
+`PATCH /beerShop-app/beers/${beerId}`
 
 `Headers: beerId=1`
     
@@ -253,7 +254,7 @@ Response: `200 OK`
 
 ```
 {
-    "id" : 1
+    "response" : "Price changed to 3.15"
 }
 ```
 
@@ -261,7 +262,7 @@ Response: `200 OK`
 
 Request: 
     
-`PATCH /beerShop-app/beer/${beerId}`
+`PATCH /beerShop-app/beers/${beerId}`
 
 `Headers: beerId=1`
     
@@ -287,7 +288,7 @@ Response: `404 Not Found`
 
 Request: 
     
-`PATCH /beerShop-app/beer/${beerId}`
+`PATCH /beerShop-app/beers/${beerId}`
 
 `Headers: beerId=1`
     

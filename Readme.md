@@ -218,7 +218,7 @@ Response: `200 OK`
 
 Request: 
     
-`PATCH /beer-shop-app/admin/orders/1`
+`PUT /beer-shop-app/admin/orders/1`
 
 `Headers: orderId=1`
 
@@ -240,7 +240,7 @@ Response: `200 OK`
 
 Request: 
     
-`PATCH /beer-shop-app/beers/${beerId}`
+`PUT /beer-shop-app/beers/${beerId}`
 
 `Headers: beerId=1`
     
@@ -262,7 +262,7 @@ Response: `200 OK`
 
 Request: 
     
-`PATCH /beer-shop-app/beers/${beerId}`
+`PUT /beer-shop-app/beers/${beerId}`
 
 `Headers: beerId=1`
     
@@ -288,7 +288,7 @@ Response: `404 Not Found`
 
 Request: 
     
-`PATCH /beer-shop-app/beers/${beerId}`
+`PUT /beer-shop-app/beers/${beerId}`
 
 `Headers: beerId=1`
     

@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import com.example.demo.dto.Beer;
 import com.example.demo.dto.Message;
 import com.example.demo.service.BeerService;
@@ -8,8 +10,6 @@ import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Log
 @Data

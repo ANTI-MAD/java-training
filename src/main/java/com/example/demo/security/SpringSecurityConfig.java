@@ -9,9 +9,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import static com.example.demo.security.UserRole.ADMIN;
+import static com.example.demo.security.UserRole.CUSTOMER;
 
 
 @EnableWebSecurity
@@ -27,10 +28,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.httpBasic()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/beer-shop-app/beers").permitAll()
-                .antMatchers(HttpMethod.GET, "/beer-shop-app/beers/list").permitAll()
-                .antMatchers(HttpMethod.POST, "/beer-shop-app/user/sign-up").permitAll()
-                .antMatchers(HttpMethod.POST, "/beer-shop-app/user/sign-in").permitAll()
+                //.antMatchers(HttpMethod.GET, "/student/register/course/*").hasRole(STUDENT.name())
+                //.antMatchers(HttpMethod.GET, "/course").hasAnyRole(STUDENT.name(), TEACHER.name())
+                .antMatchers(HttpMethod.POST, "/beer-shop-app/user/sign-in", "/beer-shop-app/user/sign-up").permitAll()
+                .antMatchers(HttpMethod.POST, "/beer-shop-app/beers").hasAnyRole(CUSTOMER.name(), ADMIN.name())
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -49,10 +50,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-    /*@Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
-    }*/
 }

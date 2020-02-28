@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.dto.Beer;
 import com.example.demo.dto.Message;
-import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -13,8 +12,6 @@ public class BeerService {
     List<Beer> list = new LinkedList<>();
 
     public List<Beer> getBeers() {
-        //List<Beer> list = new LinkedList<>();
-
         list.add(Beer.builder()
                 .id(1L)
                 .type("Трипель")
@@ -35,7 +32,7 @@ public class BeerService {
         beer.builder()
                 .id(1L)
                 .type("Трипель")
-                .name("Maredsous 10° Triple")
+                .name("Maredsous 10° Triple New")
                 .alcohol("10.0%")
                 .volume("0.5")
                 .price(3D)

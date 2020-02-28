@@ -6,18 +6,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 
-
-public class AuthControllerTest extends AbstractControllerTest{
+public class AuthControllerTest extends AbstractControllerTest {
 
     @Test
-    public void testCustomerSignUpIsCreated() throws Exception {
+    public void testStudentSignUpIsCreated() throws Exception {
         // given
+        willReturn(Optional.empty(), Optional.of(createAuthInfo())).given(authInfoRepository)
+                .findByLogin("example@email.com");
         // when
         mockMvc.perform(post("/beer-shop-app/user/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -33,7 +32,7 @@ public class AuthControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    public void testCustomerSignUpWhenUserAlreadyExisted() throws Exception {
+    public void testStudentSignUpWhenUserAlreadyExisted() throws Exception {
         // given
         signInAsCustomer();
         // when
@@ -50,11 +49,9 @@ public class AuthControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    public void testCustomerSignInIsOk() throws Exception {
+    public void testStudentSignInIsOk() throws Exception {
         // given
-        final User user = new User("example@email.com", passwordEncoder.encode("password"),
-                List.of(new SimpleGrantedAuthority("CUSTOMER")));
-        willReturn(user).given(loadUserDetailService).loadUserByUsername("example@email.com");
+        signInAsCustomer();
         // when
         mockMvc.perform(post("/beer-shop-app/user/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -70,14 +67,12 @@ public class AuthControllerTest extends AbstractControllerTest{
     @Test
     public void testStudentSignInWithWrongPassword() throws Exception {
         // given
-        final User user = new User("example@email.com", passwordEncoder.encode("password"),
-                List.of(new SimpleGrantedAuthority("CUSTOMER")));
-        willReturn(user).given(loadUserDetailService).loadUserByUsername("example@email.com");
+        signInAsCustomer();
         // when
         mockMvc.perform(post("/beer-shop-app/user/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
-                        "  \"email\" : \"example@email.com\",\n" +
+                        "  \"email\" : \"vasya@email.com\",\n" +
                         "  \"password\" : \"wrongPassword\"\n" +
                         "}"))
                 // then
@@ -85,16 +80,14 @@ public class AuthControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    public void testCustomerSignInWithWrongEmail() throws Exception {
+    public void testStudentSignInWithWrongEmail() throws Exception {
         // given
-        final User user = new User("vasya@email.com", passwordEncoder.encode("qwerty"),
-                List.of(new SimpleGrantedAuthority("CUSTOMER")));
-        willReturn(user).given(loadUserDetailService).loadUserByUsername("vasya@email.com");
+        signInAsCustomer();
         // when
         mockMvc.perform(post("/beer-shop-app/user/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
-                        "  \"email\" : \"vasya@email.com\",\n" +
+                        "  \"email\" : \"noSuchVasyavasya@email.com\",\n" +
                         "  \"password\" : \"wrongPassword\"\n" +
                         "}"))
                 // then

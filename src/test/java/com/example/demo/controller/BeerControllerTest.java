@@ -1,22 +1,14 @@
 package com.example.demo.controller;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
-public class BeerControllerTest {
+import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
 
-    @Autowired
-    private MockMvc mockMvc;
+public class BeerControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetBeersIsOk() throws Exception {
@@ -40,7 +32,9 @@ public class BeerControllerTest {
 
     @Test
     public void testAddNewBeerIsOk() throws Exception {
-        mockMvc.perform(post("/beer-shop-app/beers")
+        final String token = signInAsCustomer();
+
+        mockMvc.perform(post("/beer-shop-app/beers").header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "      \"type\" : \"Трипель\",\n" +
@@ -64,7 +58,7 @@ public class BeerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\n" +
-                "  \"response\" : \"Maredsous 10° Triple\"\n" +
+                        "  \"response\" : \"Maredsous 10° Triple\"\n" +
                         "}"));
     }
 

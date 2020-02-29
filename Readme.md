@@ -25,6 +25,14 @@
 - Email
 - Пароль
 - Дата рождения
+
+### Заказ:
+
+Поля:
+- Покупатель
+- Статус
+- Общая стоимость
+- Список покупок
      
 ### Администратор:
 
@@ -42,7 +50,7 @@
 
 Request:
 
-`POST /beerShop-app/customer/sign-up`
+`POST /beer-shop-app/customer/sign-up`
 ```json
 {
   "email" : "example@email.com",
@@ -56,7 +64,17 @@ Response:
 `201 CREATED`
 ```json
 {
-  "id" : 1
+  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQGVtYWlsLmNvbSIsImV4cCI6MTU4Mjg0NzQzOSwiaWF0IjoxNTgyODExNDM5fQ.bjRI9p-17lPdNJUSrMlL3OfAPwpvOmVIlkqiw-0Jf8I"
+}
+```
+
+Если пользоветель с таким email уже существует, то будет возвращено:
+
+Response:
+`403 Forbidden`
+```json
+{
+  "message" : "User with that email already exists"
 }
 ```
 
@@ -64,7 +82,7 @@ Response:
 
 Request:
 
-`POST /beerShop-app/customer/sign-in`
+`POST /beer-shop-app/customer/sign-in`
 ```json
 {
   "email" : "example@email.com",
@@ -76,7 +94,17 @@ Response:
 `200 OK`
 ```json
 {
-  "id" : 1
+  "token" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlQGVtYWlsLmNvbSIsImV4cCI6MTU4Mjg0NzQzOSwiaWF0IjoxNTgyODExNDM5fQ.bjRI9p-17lPdNJUSrMlL3OfAPwpvOmVIlkqiw-0Jf8I"
+}
+```
+
+Если email либо пароль неверные, то пользователь получит следующий ответ:
+
+Response:
+`403 Forbidden`
+```json
+{
+  "message" : "Wrong email or password"
 }
 ```
 
@@ -84,7 +112,7 @@ Response:
 
 Request:
 
-`GET /beerShop-app/beer`
+`GET /beer-shop-app/beers`
 
 Response:
 `200 OK`
@@ -119,26 +147,18 @@ Response:
 
 Request:
 
-`POST /beerShop-app/beer/${beerId}/order`
+`POST /beer-shop-app/beers/${beerId}/order`
 
 ```
 {
     "id": 1,
-    "fio": "Петров Петр Петрович",
-    "email": "example@email.com",
+    "customer_id": 1,
     "processed": false,
     "totalCost": 6,
-    "order": [
+    "shoppingList": [
         {
-            "id" : 1, 
-            "type" : "Трипель",
-            "name" : "Maredsous 10° Triple",
-            "alcohol": "10.00%",
-            "volume" : "0.5",
-            "price" : 3,
-            "description" : "Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.",
-            "brewery" : "Abbaye de Maredsous",
-            "quantity": 2
+            "beer_id" : 1, 
+            "amount": 2
         }
     ]
 },
@@ -147,12 +167,17 @@ Request:
 
 Response:
 `201 CREATED`
+```json
+{
+  "response" : "Beer Maredsous 10° Triple successfully added"
+}
+```
 
 ### GPBS-5 Как "Администратор" я хочу добавить новый сорт пива в список продаж, и, если такого пива нет, добавляю его
 
 Request: 
     
-`POST /beerShop-app/beer/add`
+`POST /beer-shop-app/beers/`
 
 ```    
 {
@@ -168,10 +193,9 @@ Request:
 ```
 
 Response: `201 CREATED`
-
-```
+```json
 {
-   "id" : 3
+   "response" : "Hoegaarden Wit-blanche Triple successfully added"
 }
 ```
 
@@ -179,17 +203,22 @@ Response: `201 CREATED`
 
 Request: 
     
-`DELETE /beerShop-app/beer/${beerId}`
+`DELETE /beer-shop-app/beers/${beerId}`
 
 `Headers: beerId=1`
 
 Response: `200 OK`
+```json
+{
+   "response" : "Maredsous 10° Triple"
+}
+```
 
 ### GPBS-7 Как "Администратор" я хочу изменить статус заказа на "Обработано", и, если заказ не обработан, меняю его статус
 
 Request: 
     
-`PATCH /beerShop-app/admin/orders/1`
+`PUT /beer-shop-app/admin/orders/1`
 
 `Headers: orderId=1`
 
@@ -203,7 +232,7 @@ Response: `200 OK`
 
 ```
 {
-    "id": 1
+    "response": "Maredsous 10° Triple - true"
 }
 ```
 
@@ -211,7 +240,7 @@ Response: `200 OK`
 
 Request: 
     
-`PATCH /beerShop-app/beer/${beerId}`
+`PUT /beer-shop-app/beers/${beerId}`
 
 `Headers: beerId=1`
     
@@ -225,6 +254,58 @@ Response: `200 OK`
 
 ```
 {
-    "id" : 1
+    "response" : "Price changed to 3.15"
 }
 ```
+
+### GPBS-9 Как "Администратор" я хочу изменить количество пива на складе, и если такой сорт пива есть, меняю количество
+
+Request: 
+    
+`PUT /beer-shop-app/beers/${beerId}`
+
+`Headers: beerId=1`
+    
+```    
+{
+    "stockBalance": 30
+}
+```
+
+Response: `200 OK`
+
+```
+{
+    "response" : "stockBalance successfully changed to 30"
+}
+```
+
+Если такого пива не найдено, то будет возвращено
+
+Response: `404 Not Found`
+
+### GPBS-10 Как "Администратор" я хочу изменить название пива, и если такое название есть, меняю его
+
+Request: 
+    
+`PUT /beer-shop-app/beers/${beerId}`
+
+`Headers: beerId=1`
+    
+```    
+{
+    "name": "Hoegaarden Wit-blanche New"
+}
+```
+
+Response: `200 OK`
+
+```
+{
+    "response" : "Maredsous 10° Triple successfully changed to Hoegaarden Wit-blanche New"
+}
+```
+
+Если такого пива не найдено, то будет возвращено
+
+Response: `404 Not Found`

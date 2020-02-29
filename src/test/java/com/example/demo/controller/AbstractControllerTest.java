@@ -10,6 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.demo.dto.UserSignInResponse;
 import com.example.demo.entity.AuthInfoEntity;
 import com.example.demo.entity.UserEntity;
+import com.example.demo.repository.BeerRepository;
+import com.example.demo.repository.OrderItemRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.repository.AuthInfoRepository;
 import com.example.demo.repository.UserRepository;
@@ -23,9 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
-/**
- * @author Wladimir Litvinov
- */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:application-test.properties")
 @AutoConfigureMockMvc
@@ -42,6 +41,11 @@ public abstract class AbstractControllerTest {
     protected AuthInfoRepository authInfoRepository;
     @MockBean
     protected UserRepository userRepository;
+
+    @MockBean
+    protected BeerRepository beerRepository;
+    @MockBean
+    protected OrderItemRepository orderItemRepository;
 
     protected String signInAsCustomer() throws Exception {
         final AuthInfoEntity authInfo = createAuthInfo();

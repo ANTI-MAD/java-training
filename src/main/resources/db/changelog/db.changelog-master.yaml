@@ -111,32 +111,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - createTable:
-            tableName: order_item
-            columns:
-              - column:
-                  name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: beer_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
-              - column:
-                  name: amount
-                  type: INTEGER
-                  constraints:
-                    nullable: false
-              - column:
-                  name: order_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
-        - createTable:
-            tableName: order
+            tableName: order_table
             columns:
               - column:
                   name: id
@@ -165,3 +140,81 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     nullable: false
+        - createTable:
+            tableName: order_item
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: beer_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_table_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: insert into beer table
+      author: artsiom_bakun
+      changes:
+        - insert:
+            tableName: beer
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: type
+                  value: "Трипель"
+              - column:
+                  name: name
+                  value: "Maredsous 10° Triple"
+              - column:
+                  name: alcohol
+                  value: "10.0%"
+              - column:
+                  name: volume
+                  value: "0.5"
+              - column:
+                  name: price
+                  value: 3
+              - column:
+                  name: description
+                  value: "Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой."
+              - column:
+                  name: brewery
+                  value: "Abbaye de Maredsous"
+              - column:
+                  name: stock_balance
+                  value: 20
+  - changeSet:
+      id: insert into order_item table
+      author: artsiom_bakun
+      changes:
+        - insert:
+            tableName: order_item
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: beer_id
+                  value: 1
+              - column:
+                  name: amount
+                  value: 2
+              - column:
+                  name: order_table_id
+                  value: 1

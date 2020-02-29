@@ -1,19 +1,32 @@
 package com.example.demo.controller;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import static org.mockito.BDDMockito.given;
+
+import com.example.demo.dto.Message;
+import com.example.demo.entity.BeerEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 public class BeerControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetBeersIsOk() throws Exception {
         final String token = signInAsCustomer();
+        final List<BeerEntity> testBeer = getBeers();
+        given(beerRepository.findAll()).willReturn(testBeer);
 
         mockMvc.perform(get("/beer-shop-app/beers/list").header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -31,11 +44,14 @@ public class BeerControllerTest extends AbstractControllerTest {
                         "      \"stockBalance\" : 20\n" +
                         "    }\n" +
                         "]"));
+        verify(beerRepository, times(1)).findAll();
     }
 
     @Test
     public void testAddNewBeerIsOk() throws Exception {
         final String token = signInAsCustomer();
+        final BeerEntity testBeer = getBeer();
+        given(beerRepository.findById(1L)).willReturn(Optional.of(testBeer));
 
         mockMvc.perform(post("/beer-shop-app/beers").header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -53,11 +69,14 @@ public class BeerControllerTest extends AbstractControllerTest {
                 .andExpect(content().json("{\n" +
                         "  \"response\" : \"Beer Maredsous 10° Triple successfully added\"\n" +
                         "}"));
+        verify(beerRepository, times(2)).save(any(BeerEntity.class));
     }
 
     @Test
     public void testDeleteBeerIsOk() throws Exception {
         final String token = signInAsCustomer();
+        final BeerEntity testBeer = getBeer();
+        given(beerRepository.findById(1L)).willReturn(Optional.of(testBeer));
 
         mockMvc.perform(delete("/beer-shop-app/beers/1").header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -70,8 +89,10 @@ public class BeerControllerTest extends AbstractControllerTest {
     @Test
     public void testUpdatePrice() throws Exception {
         final String token = signInAsCustomer();
+        final BeerEntity testBeer = getBeer();
+        given(beerRepository.findById(1L)).willReturn(Optional.of(testBeer));
 
-        mockMvc.perform(put("/beer-shop-app/beers/1").header("Authorization", token)
+        mockMvc.perform(post("/beer-shop-app/beers/1").header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "    \"price\": 3.15\n" +
@@ -80,5 +101,37 @@ public class BeerControllerTest extends AbstractControllerTest {
                 .andExpect(content().json("{\n" +
                         "  \"response\" : \"Price changed to 3.15\"\n" +
                         "}"));
+    }
+
+    private List<BeerEntity> getBeers() {
+        final BeerEntity beer = new BeerEntity();
+        beer.setId(1L);
+        beer.setType("Трипель");
+        beer.setName("Maredsous 10° Triple");
+        beer.setAlcohol("10.0%");
+        beer.setVolume("0.5");
+        beer.setPrice(3D);
+        beer.setDescription("Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.");
+        beer.setBrewery("Abbaye de Maredsous");
+        beer.setStockBalance(20);
+        beerRepository.save(beer);
+
+        return Arrays.asList(beer);
+    }
+
+    private BeerEntity getBeer() {
+        final BeerEntity beer = new BeerEntity();
+        beer.setId(1L);
+        beer.setType("Трипель");
+        beer.setName("Maredsous 10° Triple");
+        beer.setAlcohol("10.0%");
+        beer.setVolume("0.5");
+        beer.setPrice(3D);
+        beer.setDescription("Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, с фруктовыми нотками и пряной хмелевой горчинкой.");
+        beer.setBrewery("Abbaye de Maredsous");
+        beer.setStockBalance(20);
+        beerRepository.save(beer);
+
+        return beer;
     }
 }

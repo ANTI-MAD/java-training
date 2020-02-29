@@ -18,7 +18,7 @@ public class BeerService {
     private final BeerRepository beerRepository;
     private final BeerMapper beerMapper;
 
-    @PostConstruct
+    /*@PostConstruct
     public void init() {
         beerRepository.save(beerMapper.sourceToDestination(Beer.builder()
                 .id(1L)
@@ -32,9 +32,10 @@ public class BeerService {
                 .brewery("Abbaye de Maredsous")
                 .stockBalance(20)
                 .build()));
-    }
+    }*/
 
     public List<Beer> getBeers() {
+        //init();
         return beerRepository.findAll().stream().map(beerMapper::destinationToSource).collect(Collectors.toList());
     }
 
@@ -53,7 +54,7 @@ public class BeerService {
                 .stockBalance(40)
                 .build()));
 
-        return Message.builder().response("Beer " + beer.getName() + " successfully added").build();
+        return Message.builder().response("Beer " + beerRepository.findById(1L).get().getName() + " successfully added").build();
     }
 
     public Message deleteBeer(final Long beerId){

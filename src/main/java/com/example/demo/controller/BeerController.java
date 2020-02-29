@@ -34,7 +34,7 @@ public class BeerController {
         return beerService.deleteBeer(beerId);
     }
 
-    @PutMapping(value = "/{beerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/{beerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Message updatePrice(@PathVariable final Long beerId){
         return beerService.updatePrice(beerId);

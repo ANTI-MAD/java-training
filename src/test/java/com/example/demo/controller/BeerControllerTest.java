@@ -12,6 +12,7 @@ import static org.mockito.BDDMockito.given;
 
 import com.example.demo.dto.Message;
 import com.example.demo.entity.BeerEntity;
+import com.example.demo.security.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ public class BeerControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetBeersIsOk() throws Exception {
-        final String token = signInAsCustomer();
+        final String token = signIn(UserRole.CUSTOMER);
         final List<BeerEntity> testBeer = getBeers();
         given(beerRepository.findAll()).willReturn(testBeer);
 
@@ -49,7 +50,7 @@ public class BeerControllerTest extends AbstractControllerTest {
 
     @Test
     public void testAddNewBeerIsOk() throws Exception {
-        final String token = signInAsCustomer();
+        final String token = signIn(UserRole.ADMIN);
         final BeerEntity testBeer = getBeer();
         given(beerRepository.findById(1L)).willReturn(Optional.of(testBeer));
 
@@ -74,7 +75,7 @@ public class BeerControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDeleteBeerIsOk() throws Exception {
-        final String token = signInAsCustomer();
+        final String token = signIn(UserRole.ADMIN);
         final BeerEntity testBeer = getBeer();
         given(beerRepository.findById(1L)).willReturn(Optional.of(testBeer));
 
@@ -88,7 +89,7 @@ public class BeerControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdatePrice() throws Exception {
-        final String token = signInAsCustomer();
+        final String token = signIn(UserRole.ADMIN);
         final BeerEntity testBeer = getBeer();
         given(beerRepository.findById(1L)).willReturn(Optional.of(testBeer));
 

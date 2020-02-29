@@ -12,6 +12,7 @@ import com.example.demo.entity.AuthInfoEntity;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.repository.BeerRepository;
 import com.example.demo.repository.OrderItemRepository;
+import com.example.demo.security.UserRole;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.repository.AuthInfoRepository;
 import com.example.demo.repository.UserRepository;
@@ -47,8 +48,8 @@ public abstract class AbstractControllerTest {
     @MockBean
     protected OrderItemRepository orderItemRepository;
 
-    protected String signInAsCustomer() throws Exception {
-        final AuthInfoEntity authInfo = createAuthInfo();
+    protected String signIn(UserRole userRole) throws Exception {
+        final AuthInfoEntity authInfo = createAuthInfo(userRole);
         willReturn(Optional.of(authInfo)).given(authInfoRepository).findByLogin("example@email.com");
 
         final String response = mockMvc.perform(post("/beer-shop-app/user/sign-in")
@@ -64,9 +65,9 @@ public abstract class AbstractControllerTest {
         return "Bearer " + objectMapper.readValue(response, UserSignInResponse.class).getToken();
     }
 
-    protected AuthInfoEntity createAuthInfo() {
+    protected AuthInfoEntity createAuthInfo(UserRole userRole) {
         final UserEntity user = new UserEntity();
-        user.setUserRole(CUSTOMER);
+        user.setUserRole(userRole);
         user.setEmail("example@email.com");
 
         final AuthInfoEntity authInfo = new AuthInfoEntity();

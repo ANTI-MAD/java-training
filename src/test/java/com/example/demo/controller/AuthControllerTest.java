@@ -7,15 +7,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Optional;
+
+import com.example.demo.security.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
 public class AuthControllerTest extends AbstractControllerTest {
 
     @Test
-    public void testStudentSignUpIsCreated() throws Exception {
+    public void testCustomerSignUpIsCreated() throws Exception {
         // given
-        willReturn(Optional.empty(), Optional.of(createAuthInfo())).given(authInfoRepository)
+        willReturn(Optional.empty(), Optional.of(createAuthInfo(UserRole.CUSTOMER))).given(authInfoRepository)
                 .findByLogin("example@email.com");
         // when
         mockMvc.perform(post("/beer-shop-app/user/sign-up")
@@ -32,9 +34,9 @@ public class AuthControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testStudentSignUpWhenUserAlreadyExisted() throws Exception {
+    public void testCustomerSignUpWhenUserAlreadyExisted() throws Exception {
         // given
-        signInAsCustomer();
+        signIn(UserRole.CUSTOMER);
         // when
         mockMvc.perform(post("/beer-shop-app/user/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -49,9 +51,9 @@ public class AuthControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testStudentSignInIsOk() throws Exception {
+    public void testCustomerSignInIsOk() throws Exception {
         // given
-        signInAsCustomer();
+        signIn(UserRole.CUSTOMER);
         // when
         mockMvc.perform(post("/beer-shop-app/user/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -65,9 +67,9 @@ public class AuthControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testStudentSignInWithWrongPassword() throws Exception {
+    public void testCustomerSignInWithWrongPassword() throws Exception {
         // given
-        signInAsCustomer();
+        signIn(UserRole.CUSTOMER);
         // when
         mockMvc.perform(post("/beer-shop-app/user/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -80,9 +82,9 @@ public class AuthControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testStudentSignInWithWrongEmail() throws Exception {
+    public void testCustomerSignInWithWrongEmail() throws Exception {
         // given
-        signInAsCustomer();
+        signIn(UserRole.CUSTOMER);
         // when
         mockMvc.perform(post("/beer-shop-app/user/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)

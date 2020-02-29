@@ -147,7 +147,7 @@ Response:
 
 Request:
 
-`POST /beer-shop-app/beers/${beerId}/order`
+`POST /beer-shop-app/orders/${orderId}`
 
 ```
 {

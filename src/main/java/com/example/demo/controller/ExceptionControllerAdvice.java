@@ -10,9 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-/**
- * @author Wladimir Litvinov
- */
 @ControllerAdvice
 @Log
 public class ExceptionControllerAdvice {
@@ -23,12 +20,6 @@ public class ExceptionControllerAdvice {
         log.log(Level.SEVERE, e.getMessage(), e);
         return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
-
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ErrorMessage> handle(final Exception e) {
-//        log.log(Level.SEVERE, e.getMessage(), e);
-//        return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
 
     @Data
     public static class ErrorMessage {

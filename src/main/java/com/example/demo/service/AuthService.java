@@ -14,9 +14,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-/**
- * @author Wladimir Litvinov
- */
 @Service
 @AllArgsConstructor
 public class AuthService {

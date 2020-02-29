@@ -8,9 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Data;
 
-/**
- * @author Wladimir Litvinov
- */
 @Data
 @Entity(name = "user")
 public class UserEntity {

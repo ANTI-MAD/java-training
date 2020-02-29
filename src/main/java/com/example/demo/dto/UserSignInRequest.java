@@ -2,9 +2,6 @@ package com.example.demo.dto;
 
 import lombok.Data;
 
-/**
- * @author Wladimir Litvinov
- */
 @Data
 public class UserSignInRequest {
 

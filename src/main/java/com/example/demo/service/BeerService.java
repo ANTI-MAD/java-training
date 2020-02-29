@@ -2,17 +2,25 @@ package com.example.demo.service;
 
 import com.example.demo.dto.Beer;
 import com.example.demo.dto.Message;
+import com.example.demo.mapper.BeerMapper;
+import com.example.demo.repository.BeerRepository;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Data
 @Service
 public class BeerService {
-    List<Beer> list = new LinkedList<>();
+    private final BeerRepository beerRepository;
+    private final BeerMapper beerMapper;
 
-    public List<Beer> getBeers() {
-        list.add(Beer.builder()
+    @PostConstruct
+    public void init() {
+        beerRepository.save(beerMapper.sourceToDestination(Beer.builder()
                 .id(1L)
                 .type("Трипель")
                 .name("Maredsous 10° Triple")
@@ -23,13 +31,16 @@ public class BeerService {
                         "с фруктовыми нотками и пряной хмелевой горчинкой.")
                 .brewery("Abbaye de Maredsous")
                 .stockBalance(20)
-                .build());
-        return list;
+                .build()));
+    }
+
+    public List<Beer> getBeers() {
+        return beerRepository.findAll().stream().map(beerMapper::destinationToSource).collect(Collectors.toList());
     }
 
     public Message addNewBeer(final Beer beer){
         //List<Beer> list = new LinkedList<>();
-        beer.builder()
+        beerRepository.save(beerMapper.sourceToDestination(Beer.builder()
                 .id(1L)
                 .type("Трипель")
                 .name("Maredsous 10° Triple New")
@@ -39,22 +50,20 @@ public class BeerService {
                 .description("Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, " +
                         "с фруктовыми нотками и пряной хмелевой горчинкой.")
                 .brewery("Abbaye de Maredsous")
-                .stockBalance(20)
-                .build();
+                .stockBalance(40)
+                .build()));
 
         return Message.builder().response("Beer " + beer.getName() + " successfully added").build();
     }
 
     public Message deleteBeer(final Long beerId){
-        int index = 0;
-        String name = getBeers().get(index).getName();
-        getBeers().remove(index);
+        String name = beerRepository.findById(beerId).get().getName();
+        beerRepository.deleteById(beerId);
         return Message.builder().response(name).build();
     }
 
     public Message updatePrice(final Long beerId){
-        int index = 0;
-        getBeers().get(index).setPrice(3.15);
-        return Message.builder().response("Price changed to " + getBeers().get(index).getPrice()).build();
+        beerRepository.findById(beerId).get().setPrice(3.15);
+        return Message.builder().response("Price changed to " + beerRepository.findById(beerId).get().getPrice()).build();
     }
 }

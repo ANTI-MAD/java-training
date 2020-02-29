@@ -1,10 +1,10 @@
 package com.example.demo.security;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.example.demo.entity.AuthInfoEntity;
 import com.example.demo.repository.AuthInfoRepository;
+
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Wladimir Litvinov
+ */
 @Service
 @RequiredArgsConstructor
 public class LoadUserDetailService implements UserDetailsService {

@@ -8,6 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Data;
 
+/**
+ * @author Wladimir Litvinov
+ */
 @Data
 @Entity(name = "auth_info")
 public class AuthInfoEntity {

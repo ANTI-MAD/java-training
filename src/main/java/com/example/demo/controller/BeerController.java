@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
 import com.example.demo.dto.Beer;
 import com.example.demo.dto.Message;
 import com.example.demo.service.BeerService;
+import java.util.List;
 import lombok.Data;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;

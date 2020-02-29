@@ -11,10 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.example.demo.security.UserRole.ADMIN;
-import static com.example.demo.security.UserRole.CUSTOMER;
-
-
+/**
+ * @author Wladimir Litvinov
+ */
 @EnableWebSecurity
 @AllArgsConstructor
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -31,7 +30,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers(HttpMethod.GET, "/student/register/course/*").hasRole(STUDENT.name())
                 //.antMatchers(HttpMethod.GET, "/course").hasAnyRole(STUDENT.name(), TEACHER.name())
                 .antMatchers(HttpMethod.POST, "/beer-shop-app/user/sign-in", "/beer-shop-app/user/sign-up").permitAll()
-                .antMatchers(HttpMethod.POST, "/beer-shop-app/beers").hasAnyRole(CUSTOMER.name(), ADMIN.name())
+                .antMatchers(HttpMethod.POST, "/beer-shop-app/beers/*").hasAnyRole(UserRole.CUSTOMER.name(), UserRole.ADMIN.name())
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

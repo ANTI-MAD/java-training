@@ -1,13 +1,12 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
 import com.example.demo.dto.CustomerSignUpRequest;
 import com.example.demo.dto.UserSignInRequest;
 import com.example.demo.dto.UserSignInResponse;
 import com.example.demo.exception.SuchUserAlreadyExistException;
 import com.example.demo.security.JwtUtil;
 import com.example.demo.service.AuthService;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author Wladimir Litvinov
+ */
 @RestController
 @AllArgsConstructor
 public class AuthController {

@@ -1,5 +1,8 @@
 package com.example.demo.exception;
 
+/**
+ * @author Wladimir Litvinov
+ */
 public class SuchUserAlreadyExistException extends Exception {
 
     public SuchUserAlreadyExistException() {

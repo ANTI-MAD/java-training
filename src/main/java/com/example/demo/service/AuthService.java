@@ -1,19 +1,22 @@
 package com.example.demo.service;
 
-import javax.transaction.Transactional;
-
 import com.example.demo.dto.CustomerSignUpRequest;
 import com.example.demo.entity.AuthInfoEntity;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.exception.SuchUserAlreadyExistException;
-import com.example.demo.mapper.CustomerSignUpRequestMapper;
 import com.example.demo.repository.AuthInfoRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.UserRole;
+import com.example.demo.mapper.CustomerSignUpRequestMapper;
+
+import javax.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Wladimir Litvinov
+ */
 @Service
 @AllArgsConstructor
 public class AuthService {

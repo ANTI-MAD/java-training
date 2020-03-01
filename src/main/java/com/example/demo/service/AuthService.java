@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.CustomerSignUpRequest;
+import com.example.demo.dto.UserSignUpRequest;
 import com.example.demo.entity.AuthInfoEntity;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.exception.SuchUserAlreadyExistException;
@@ -26,21 +26,21 @@ public class AuthService {
     private CustomerSignUpRequestMapper customerSignUpRequestMapper;
 
     @Transactional
-    public void signUp(final CustomerSignUpRequest request) throws SuchUserAlreadyExistException {
+    public void signUp(final UserSignUpRequest request) throws SuchUserAlreadyExistException {
         if (authInfoRepository.findByLogin(request.getEmail()).isPresent()) {
             throw new SuchUserAlreadyExistException("User with email=" + request.getEmail() + " already exists");
         }
         saveUser(request);
     }
 
-    private void saveUser(final CustomerSignUpRequest request) {
+    private void saveUser(final UserSignUpRequest request) {
         final UserEntity userEntity = customerSignUpRequestMapper.sourceToDestination(request);
         userEntity.setUserRole(UserRole.CUSTOMER);
         final UserEntity savedUser = userRepository.save(userEntity);
         saveAuthInfo(request, savedUser);
     }
 
-    private void saveAuthInfo(final CustomerSignUpRequest request, final UserEntity savedUser) {
+    private void saveAuthInfo(final UserSignUpRequest request, final UserEntity savedUser) {
         final AuthInfoEntity authInfoEntity = new AuthInfoEntity();
         authInfoEntity.setLogin(request.getEmail());
         authInfoEntity.setPassword(passwordEncoder.encode(request.getPassword()));

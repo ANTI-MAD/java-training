@@ -88,6 +88,15 @@ public class BeerControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    public void testDeleteBeerDeniedForClient() throws Exception {
+        final String token = signIn(UserRole.CUSTOMER);
+
+        mockMvc.perform(delete("/beer-shop-app/beers/1").header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     public void testUpdatePrice() throws Exception {
         final String token = signIn(UserRole.ADMIN);
         final BeerEntity testBeer = getBeer();

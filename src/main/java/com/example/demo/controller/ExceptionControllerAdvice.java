@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.ShopNoSuchElementException;
 import com.example.demo.exception.SuchUserAlreadyExistException;
 import java.util.logging.Level;
 import lombok.Data;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionControllerAdvice {
 
     @ExceptionHandler(
-            {SuchUserAlreadyExistException.class, UsernameNotFoundException.class})
+            {SuchUserAlreadyExistException.class, ShopNoSuchElementException.class, UsernameNotFoundException.class})
     private ResponseEntity<ErrorMessage> handleBadRequest(final Exception e) {
         log.log(Level.SEVERE, e.getMessage(), e);
         return new ResponseEntity<>(new ErrorMessage(e.getMessage()), HttpStatus.BAD_REQUEST);

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.Beer;
 import com.example.demo.dto.Message;
+import com.example.demo.exception.ShopNoSuchElementException;
 import com.example.demo.mapper.BeerMapper;
 import com.example.demo.repository.BeerRepository;
 import lombok.Data;
@@ -57,13 +58,19 @@ public class BeerService {
         return Message.builder().response("Beer " + beerRepository.findById(1L).get().getName() + " successfully added").build();
     }
 
-    public Message deleteBeer(final Long beerId){
+    public Message deleteBeer(final Long beerId) throws ShopNoSuchElementException {
+        if (beerRepository.findById(beerId).isEmpty()) {
+            throw new ShopNoSuchElementException("Beer with " + beerId + " not founded");
+        }
         String name = beerRepository.findById(beerId).get().getName();
         beerRepository.deleteById(beerId);
         return Message.builder().response(name).build();
     }
 
-    public Message updatePrice(final Long beerId){
+    public Message updatePrice(final Long beerId) throws ShopNoSuchElementException {
+        if (beerRepository.findById(beerId).isEmpty()) {
+            throw new ShopNoSuchElementException("Beer with " + beerId + " not founded");
+        }
         beerRepository.findById(beerId).get().setPrice(3.15);
         return Message.builder().response("Price changed to " + beerRepository.findById(beerId).get().getPrice()).build();
     }

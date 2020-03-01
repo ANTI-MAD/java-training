@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class OrderItemController {
     private final OrderItemService orderItemService;
 
-    @PostMapping(value = "/beers/{beerId}/order", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/orders/{beerId}/{amount}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Message addNewBeer(@PathVariable final Long beerId){
-        return orderItemService.createNewOrderItem(beerId);
+    public Message addNewBeer(@PathVariable final Long beerId, @PathVariable final Integer amount){
+        return orderItemService.createNewOrderItem(beerId, amount);
     }
 }

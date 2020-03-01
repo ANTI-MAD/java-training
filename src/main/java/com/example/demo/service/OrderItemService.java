@@ -7,32 +7,20 @@ import com.example.demo.repository.OrderItemRepository;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
+import javax.persistence.criteria.CriteriaBuilder;
 
 @Service
 @Data
 public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
     private final OrderItemMapper orderItemMapper;
-    private final BeerService beerService;
 
-    /*@PostConstruct
-    public void init() {
-        //beerService.init();
+    public Message createNewOrderItem(final Long beerId, final Integer amount) {
         orderItemRepository.save(orderItemMapper.sourceToDestination(OrderItem.builder()
                 .id(1L)
-                .beerId(1L)
-                //.orderId(1L)
-                .amount(1)
-                .build()));
-    }*/
-
-    public Message createNewOrderItem(final Long beerId) {
-        //beerService.init();
-        orderItemRepository.save(orderItemMapper.sourceToDestination(OrderItem.builder()
-                .id(1L)
-                .beerId(1L)
-                .amount(2)
+                .beerId(beerId)
+                .amount(amount)
+                .orderId(1L)
                 .build()));
         return Message.builder().response("Beer " + orderItemRepository.findById(1L).get().getBeer().getName() +
                 ", amount " + orderItemRepository.findById(1L).get().getAmount()).build();

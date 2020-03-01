@@ -14,7 +14,7 @@ public class OrderItemEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "beer_id", nullable = false)
     private BeerEntity beer;
-    /*@ManyToOne(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "order_id", nullable = false)
-    private OrderEntity order;*/
+    private OrderEntity orderEntity;
 }

@@ -1,15 +1,19 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.OrderItem;
+import com.example.demo.dto.Status;
 import com.example.demo.entity.BeerEntity;
+import com.example.demo.entity.OrderEntity;
 import com.example.demo.entity.OrderItemEntity;
+import com.example.demo.entity.UserEntity;
 import com.example.demo.repository.BeerRepository;
+import com.example.demo.security.UserRole;
 import com.example.demo.service.BeerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willReturn;
@@ -21,10 +25,11 @@ public class OrderItemControllerTest extends AbstractControllerTest {
 
     @Test
     public void testCreateNewOrderItemIsOk() throws Exception {
+        final String token = signIn(UserRole.ADMIN);
         final OrderItemEntity testOrderItem = getOrderItem();
         given(orderItemRepository.findById(1L)).willReturn(Optional.of(testOrderItem));
 
-        mockMvc.perform(post("/beer-shop-app/beers/1/order")
+        mockMvc.perform(post("/beer-shop-app/orders/1/2").header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "      \"beer_id\" : 1,\n" +

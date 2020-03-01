@@ -8,6 +8,6 @@ import lombok.Data;
 public class OrderItem {
     private Long id;
     private Long beerId;
-    //private Long orderId;
+    private Long orderId;
     private Integer amount;
 }

@@ -10,12 +10,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.demo.dto.UserSignInResponse;
 import com.example.demo.entity.AuthInfoEntity;
 import com.example.demo.entity.UserEntity;
-import com.example.demo.repository.BeerRepository;
-import com.example.demo.repository.OrderItemRepository;
+import com.example.demo.repository.*;
 import com.example.demo.security.UserRole;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.demo.repository.AuthInfoRepository;
-import com.example.demo.repository.UserRepository;
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -47,6 +45,8 @@ public abstract class AbstractControllerTest {
     protected BeerRepository beerRepository;
     @MockBean
     protected OrderItemRepository orderItemRepository;
+    @MockBean
+    protected OrderRepository orderRepository;
 
     protected String signIn(UserRole userRole) throws Exception {
         final AuthInfoEntity authInfo = createAuthInfo(userRole);

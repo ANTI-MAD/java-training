@@ -7,8 +7,6 @@ import com.example.demo.repository.OrderItemRepository;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
-
 @Service
 @Data
 public class OrderItemService {

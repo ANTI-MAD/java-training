@@ -8,8 +8,6 @@ import com.example.demo.repository.BeerRepository;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,29 +17,11 @@ public class BeerService {
     private final BeerRepository beerRepository;
     private final BeerMapper beerMapper;
 
-    /*@PostConstruct
-    public void init() {
-        beerRepository.save(beerMapper.sourceToDestination(Beer.builder()
-                .id(1L)
-                .type("Трипель")
-                .name("Maredsous 10° Triple")
-                .alcohol("10.0%")
-                .volume("0.5")
-                .price(3D)
-                .description("Бельгийский трипель со слегка сладковатым карамельно-хлебным вкусом, " +
-                        "с фруктовыми нотками и пряной хмелевой горчинкой.")
-                .brewery("Abbaye de Maredsous")
-                .stockBalance(20)
-                .build()));
-    }*/
-
     public List<Beer> getBeers() {
-        //init();
         return beerRepository.findAll().stream().map(beerMapper::destinationToSource).collect(Collectors.toList());
     }
 
     public Message addNewBeer(final Beer beer){
-        //List<Beer> list = new LinkedList<>();
         beerRepository.save(beerMapper.sourceToDestination(Beer.builder()
                 .id(1L)
                 .type("Трипель")

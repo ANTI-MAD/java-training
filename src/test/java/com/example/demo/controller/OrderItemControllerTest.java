@@ -1,22 +1,14 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.OrderItem;
-import com.example.demo.dto.Status;
 import com.example.demo.entity.BeerEntity;
-import com.example.demo.entity.OrderEntity;
 import com.example.demo.entity.OrderItemEntity;
-import com.example.demo.entity.UserEntity;
-import com.example.demo.repository.BeerRepository;
 import com.example.demo.security.UserRole;
-import com.example.demo.service.BeerService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
-import java.util.*;
+import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

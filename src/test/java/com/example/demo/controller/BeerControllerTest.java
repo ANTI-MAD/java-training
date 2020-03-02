@@ -74,6 +74,15 @@ public class BeerControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    public void testAddNewBeerDeniedForClient() throws Exception {
+        final String token = signIn(UserRole.CUSTOMER);
+
+        mockMvc.perform(post("/beer-shop-app/beers").header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     public void testDeleteBeerIsOk() throws Exception {
         final String token = signIn(UserRole.ADMIN);
         final BeerEntity testBeer = getBeer();
@@ -111,6 +120,15 @@ public class BeerControllerTest extends AbstractControllerTest {
                 .andExpect(content().json("{\n" +
                         "  \"response\" : \"Price changed to 3.15\"\n" +
                         "}"));
+    }
+
+    @Test
+    public void testUpdatePriceDeniedForClient() throws Exception {
+        final String token = signIn(UserRole.CUSTOMER);
+
+        mockMvc.perform(post("/beer-shop-app/beers/1").header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
     }
 
     private List<BeerEntity> getBeers() {

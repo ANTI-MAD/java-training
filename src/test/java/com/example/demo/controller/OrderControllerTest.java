@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,6 +36,15 @@ public class OrderControllerTest extends AbstractControllerTest {
                         "    \"response\": \"Статус изменён на Processed\"\n" +
                         "}"));
 
+    }
+
+    @Test
+    public void testUpdateStatusOrderDeniedForClient() throws Exception {
+        final String token = signIn(UserRole.CUSTOMER);
+
+        mockMvc.perform(post("/beer-shop-app/admin/orders/1/Processed").header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
     }
 
     private UserEntity getCustomer() {

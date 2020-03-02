@@ -25,7 +25,7 @@ public class OrderItemControllerTest extends AbstractControllerTest {
 
     @Test
     public void testCreateNewOrderItemIsOk() throws Exception {
-        final String token = signIn(UserRole.ADMIN);
+        final String token = signIn(UserRole.CUSTOMER);
         final OrderItemEntity testOrderItem = getOrderItem();
         given(orderItemRepository.findById(1L)).willReturn(Optional.of(testOrderItem));
 
